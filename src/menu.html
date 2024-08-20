@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="output.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap"
+        rel="stylesheet">
+    <title>Blog</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+</head>
+
+<body class="text-gray-600 flex-grow h-screen font-roboto ">
+
+    <div id="navbar-placeholder"></div>
+
+
+    <div class="py-12 min-h-screen">
+        <div class="container">
+            <div class="grid grid-cols-4 gap-4">
+
+
+
+
+                <div class="menu-item-placeholder"></div>
+                <div class="menu-item-placeholder"></div>
+                <div class="menu-item-placeholder"></div>
+                <div class="menu-item-placeholder"></div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+
+
+        $(function () {
+            // Örnek veri listesi (dizi)
+            $('#navbar-placeholder').load('navbar.html');
+            $('#footer-placeholder').load('footer.html');
+            var menuDataList = [
+                {
+                    imageSrc: './img/menu_1.jpg',
+                    title: 'Tavuk Döner Dürüm',
+                    description: 'Patates Kızartması, Turşu, Ketçap, Mayonez',
+                    author: '129.99 TL',
+                    date: 'May 25 2024'
+                },
+                {
+                    imageSrc: './img/menu_2.jpg',
+                    title: 'Patso',
+                    description: 'Turşu, Ketçap, Mayonez',
+                    author: '99.99 TL',
+                    date: 'June 12 2024'
+                },
+                {
+                    imageSrc: './img/menu_3.jpg',
+                    title: 'Sosisli',
+                    description: 'Sosis, Hardal, Ketçap, Mayonez',
+                    author: '109.99',
+                    date: 'July 3 2024'
+                },
+                {
+                    imageSrc: './img/menu_4.jpg',
+                    title: 'Pizza',
+                    description: 'Mozarella, Salam, Sosis, Zeytin, Mısır, Sucuk',
+                    author: '189.99',
+                    date: 'July 3 2024'
+                }
+            ];
+
+            // Her bir menu-item-placeholder için veri yükleme işlemi
+            $('.menu-item-placeholder').each(function (index) {
+                var menuItemContainer = $(this);
+
+                // menu_item.html içeriğini yükle
+                menuItemContainer.load('menu_item.html', function () {
+                    // Veriyi güncelle
+                    menuItemContainer.find('.menu-item-image').attr('src', menuDataList[index].imageSrc);
+                    menuItemContainer.find('.menu-item-title').text(menuDataList[index].title);
+                    menuItemContainer.find('.menu-item-description').text(menuDataList[index].description);
+                    menuItemContainer.find('.menu-item-author').text(menuDataList[index].author);
+                    menuItemContainer.find('.menu-item-date').text(menuDataList[index].date);
+                });
+            });
+        });
+
+    </script>
+
+
+
+</body>
+
+</html>

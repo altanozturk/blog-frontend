@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="output.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap"
+        rel="stylesheet">
+    <title>Blog</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+</head>
+
+<body class="text-gray-600 flex-grow h-screen font-roboto ">
+
+    <div id="navbar-placeholder"></div>
+
+
+    <div class="py-12 min-h-screen">
+
+        <div class="max-w-sm mx-auto mt-10 p-4 border border-gray-300 rounded-lg shadow-md bg-slate-200">
+
+            <div class="space-y-4">
+
+                <p class="text-center text-xl font-bold">Giriş Yap</p>
+
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Kullanıcı Adı</label>
+                    <input type="text" id="username" placeholder="Username"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Şifre</label>
+                    <input type="password" id="password" placeholder="Password"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" onclick="handleLogin()"
+                        class="w-44 h-10 bg-gray-300 border border-gray-400 rounded-md hover:bg-slate-400">
+                        Giriş Yap
+                    </button>
+                </div>
+
+                <div id="error-message" class="text-red-600 text-sm text-center"></div>
+
+                <div class="text-center">
+                    <a href="register.html" class="text-indigo-600 hover:text-indigo-800 text-sm">
+                        Yeni hesap oluşturmak için tıklayınız
+                    </a>
+                </div>
+
+
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+
+
+        $(function () {
+            $('#navbar-placeholder').load('navbar.html');
+            $('#footer-placeholder').load('footer.html');
+        }
+        )
+
+        function handleLogin() {
+            var username = document.getElementById("username").value.trim(); // boşlukları temizlemek için
+            var password = document.getElementById("password").value.trim();
+            var errorMessage = document.getElementById("error-message");
+
+            errorMessage.innerHTML = '';
+
+            if (username == "" && password == "") {
+                errorMessage.innerHTML = "Lütfen Geçerli Bir Kullanıcı Adı Ve Şifre Girin.";
+            }
+            else if (username == null || username == "") {
+                errorMessage.innerHTML = "Kullanıcı Adı Eksik Veya Yanlış";
+            }
+            else if (password == null || password == "") {
+                errorMessage.innerHTML = "Şifre Eksik Veya Yanlış";
+            }
+            else if(username == "test" && password == "test123"){
+                errorMessage.innerHTML = "Kullanıcı Girişi Başarılı";
+        
+            }
+            console.log("Username: ",username,"Password: ", password);
+
+
+        }
+
+    </script>
+
+
+
+</body>
+
+</html>

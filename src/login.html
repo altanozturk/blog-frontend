@@ -15,6 +15,7 @@
         rel="stylesheet">
     <title>Blog</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </head>
 
@@ -71,7 +72,7 @@
     <div id="footer-placeholder"></div>
 
     <script>
-
+        
 
         $(function () {
             $('#navbar-placeholder').load('navbar.html');
@@ -86,22 +87,27 @@
 
             errorMessage.innerHTML = '';
 
-            if (username == "" && password == "") {
+            if (username === "" || password === "") {
                 errorMessage.innerHTML = "Lütfen Geçerli Bir Kullanıcı Adı Ve Şifre Girin.";
+                return;
             }
-            else if (username == null || username == "") {
-                errorMessage.innerHTML = "Kullanıcı Adı Eksik Veya Yanlış";
-            }
-            else if (password == null || password == "") {
-                errorMessage.innerHTML = "Şifre Eksik Veya Yanlış";
-            }
-            else if(username == "test" && password == "test123"){
-                errorMessage.innerHTML = "Kullanıcı Girişi Başarılı";
-        
-            }
-            console.log("Username: ",username,"Password: ", password);
 
-
+            axios.post("http://localhost:8080/api/login", {
+                username: username,
+                password: password
+            }, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+                .then(response => {
+                    console.log(response.data);
+                    errorMessage.innerHTML = "Kullanıcı Girişi Başarılı";
+                })
+                .catch(error => {
+                    console.error(error.response ? error.response.data : error.message);
+                    errorMessage.innerHTML = "Kullanıcı Adı veya Şifre Yanlış";
+                });
         }
 
     </script>

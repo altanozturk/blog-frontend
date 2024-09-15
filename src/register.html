@@ -15,6 +15,7 @@
         rel="stylesheet">
     <title>Blog</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </head>
 
@@ -92,30 +93,30 @@
             const password = document.getElementById("password").value;
 
             try {
-                const response = await fetch('http://localhost:8080/api/register', {
-                    method: 'POST',
+                const response = await axios.post('http://localhost:8080/api/register', {
+                    username: username,
+                    email: email,
+                    password: password
+                }, {
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'Access-Control-Allow-Origin': '*'
-                        
-                    },
-                    body: new URLSearchParams({
-                        'username': username,
-                        'email': email,
-                        'password': password
-                    })
+                        'Content-Type': 'application/json'
+                    }
                 });
 
-                if (response.ok) {
+                if (response.status === 200) {
                     // Başarılıysa yönlendir veya bilgilendir
                     window.location.href = '/src/login';
                 } else {
                     // Hata varsa kullanıcıya bilgilendirme yap
-                    const errorText = await response.text();
-                    alert('Kayıt sırasında bir hata oluştu: ' + errorText);
+                    alert('Kayıt sırasında bir hata oluştu: ' + response.data.message || response.data);
                 }
             } catch (error) {
-                alert('Bir hata oluştu: ' + error.message);
+                // Hata detaylarını ayıkla ve göster
+                const errorMessage = error.response && error.response.data ? 
+                    error.response.data.error || error.message :
+                    error.message;
+
+                alert('Bir hata oluştu: ' + JSON.stringify(errorMessage));
             }
         }
 

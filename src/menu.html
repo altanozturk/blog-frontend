@@ -15,6 +15,9 @@
         rel="stylesheet">
     <title>Blog</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="scripts/navbar.js"></script>
+    <script src="scripts/addToCart.js"></script>
 
 </head>
 
@@ -24,21 +27,15 @@
 
 
     <div class="bg-gray-200 py-12 min-h-screen">
-        <div class="container">
-            <div class="grid grid-cols-4 gap-4">
-
-
-
-
+        <div class="container mx-auto">
+            <!-- Grid sistemi büyük ekranlarda 4, orta ekranlarda 3, küçük ekranlarda 2 veya 1 sütun olacak-->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 <div class="menu-item-placeholder"></div>
                 <div class="menu-item-placeholder"></div>
                 <div class="menu-item-placeholder"></div>
                 <div class="menu-item-placeholder"></div>
-
-
             </div>
         </div>
-
     </div>
 
 
@@ -53,36 +50,40 @@
 
         $(function () {
             // Örnek veri listesi (dizi)
-            $('#navbar-placeholder').load('navbar.html');
+            $('#navbar-placeholder').load('navbar.html', function () {
+                updateNavbar(); // Navbar yüklendikten sonra kullanıcı adını tekrar göster
+            });
             $('#footer-placeholder').load('footer.html');
+
+
             var menuDataList = [
                 {
+                    id: '1', // Benzersiz ürün ID'si
                     imageSrc: './img/menu_1.jpg',
                     title: 'Tavuk Döner Dürüm',
                     description: 'Patates Kızartması, Turşu, Ketçap, Mayonez',
-                    author: '129.99 TL',
-                    date: 'May 25 2024'
+                    price: '129.99 TL',
                 },
                 {
+                    id: '2',
                     imageSrc: './img/menu_2.jpg',
                     title: 'Patso',
                     description: 'Turşu, Ketçap, Mayonez',
-                    author: '99.99 TL',
-                    date: 'June 12 2024'
+                    price: '99.99 TL',
                 },
                 {
+                    id: '3',
                     imageSrc: './img/menu_3.jpg',
                     title: 'Sosisli',
                     description: 'Sosis, Hardal, Ketçap, Mayonez',
-                    author: '109.99',
-                    date: 'July 3 2024'
+                    price: '109.99 TL',
                 },
                 {
+                    id: '4',
                     imageSrc: './img/menu_4.jpg',
                     title: 'Pizza',
                     description: 'Mozarella, Salam, Sosis, Zeytin, Mısır, Sucuk',
-                    author: '189.99',
-                    date: 'July 3 2024'
+                    price: '189.99 TL',
                 }
             ];
 
@@ -96,8 +97,10 @@
                     menuItemContainer.find('.menu-item-image').attr('src', menuDataList[index].imageSrc);
                     menuItemContainer.find('.menu-item-title').text(menuDataList[index].title);
                     menuItemContainer.find('.menu-item-description').text(menuDataList[index].description);
-                    menuItemContainer.find('.menu-item-author').text(menuDataList[index].author);
-                    menuItemContainer.find('.menu-item-date').text(menuDataList[index].date);
+                    menuItemContainer.find('.menu-item-price').text(menuDataList[index].price);
+
+                    // Butona onclick özelliği ekle
+                    menuItemContainer.find('.add-to-cart-button').attr('onclick', `addToCart('${menuDataList[index].id}')`);
                 });
             });
         });

@@ -15,6 +15,7 @@
         rel="stylesheet">
     <title>Arabam Kaç Yakar?</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="scripts/navbar.js"></script>
 </head>
 
 <body class="text-gray-600 font-roboto">
@@ -80,7 +81,9 @@
     <script>
 
         $(function () {
-            $('#navbar-placeholder').load('navbar.html');
+            $('#navbar-placeholder').load('navbar.html', function () {
+                updateNavbar(); // Navbar yüklendikten sonra kullanıcı adını tekrar göster
+            });
             $('#footer-placeholder').load('footer.html');
         });
 

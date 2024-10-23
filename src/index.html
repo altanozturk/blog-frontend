@@ -14,6 +14,7 @@
     integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="scripts/navbar.js"></script>
   <title>Blog</title>
 </head>
 
@@ -44,7 +45,7 @@
 
             </a>
             <p class="text-gray-400 text-sm mt-2">
-              <h1>Bir otomobil satın almadan önce konfor, teknoloji ve performans ilk bakışta akla gelen özellikler olarak
+            <h1>Bir otomobil satın almadan önce konfor, teknoloji ve performans ilk bakışta akla gelen özellikler olarak
               bilinir. Sürücülerin ihtiyaçlarına göre konfor, teknoloji veya performans aracı tercih etmedeki temel
               sebepler olabilir. Aracın performansını önceliğine alarak seçim yapmak isteyen sürücüler bazın noktalara
               dikkat eder. Otomobilin performansını belirleyen iki temel kavram vardır.
@@ -461,7 +462,9 @@
 
   <script>
     $(function () {
-      $('#navbar-placeholder').load('navbar.html');
+      $('#navbar-placeholder').load('navbar.html', function () {
+        updateNavbar(); // Navbar yüklendikten sonra kullanıcı adını tekrar göster
+      });
       $('#footer-placeholder').load('footer.html');
     });
   </script>

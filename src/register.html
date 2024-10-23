@@ -16,6 +16,7 @@
     <title>Blog</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="scripts/navbar.js"></script>
 
 </head>
 
@@ -89,7 +90,7 @@
             const password = document.getElementById("password").value;
 
             try {
-                const response = await axios.post('http://localhost:8080/api/register', {
+                const response = await axios.post('http://localhost:8080/api/user/register', {
                     username: username,
                     email: email,
                     password: password
@@ -118,7 +119,9 @@
 
         $(function () {
 
-            $('#navbar-placeholder').load('navbar.html');
+            $('#navbar-placeholder').load('navbar.html', function () {
+                updateNavbar(); // Navbar yüklendikten sonra kullanıcı adını tekrar göster
+            });
             $('#footer-placeholder').load('footer.html');
         }
         )

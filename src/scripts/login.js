@@ -13,7 +13,7 @@ function handleLogin() {
         return;
     }
 
-    axios.post("http://localhost:8080/api/login", {
+    axios.post("http://localhost:8080/api/user/login", {
         username: username,
         password: password
     }, {

@@ -20,6 +20,7 @@
     <script src="scripts/login.js"></script>
 
 </head>
+
 <body class="text-gray-600 flex-grow h-screen font-roboto ">
 
     <div id="navbar-placeholder"></div>
@@ -66,11 +67,14 @@
 
     <script>
         $(function () {
-            $('#navbar-placeholder').load('navbar.html');
+            $('#navbar-placeholder').load('navbar.html', function () {
+                updateNavbar(); // Navbar yüklendikten sonra kullanıcı adını tekrar göster
+            });
             $('#footer-placeholder').load('footer.html');
         }
         )
     </script>
 
 </body>
+
 </html>

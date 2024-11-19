@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="output.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap"
+        rel="stylesheet">
+    <title>Sepetim</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="scripts/navbar.js"></script>
+</head>
+
+<body class="text-gray-600 flex-grow h-screen font-roboto">
+
+    <!-- Navbar ve footer yükleme alanı -->
+    <div id="navbar-placeholder"></div>
+
+    <!-- Sepetim İçeriği -->
+    <div class="bg-gray-200 py-12 min-h-screen">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">Sepetim</h2>
+
+            <div id="cart-items" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <!-- Sepet öğeleri buraya eklenecek -->
+            </div>
+
+            <!-- Boş sepet mesajı -->
+            <div id="empty-cart-message" class="text-center text-gray-600 mt-8 hidden">
+                <p>Sepetiniz şu anda boş.</p>
+            </div>
+
+            <!-- Toplam fiyat bilgisi -->
+            <div id="total-price" class="text-center mt-10 text-2xl font-semibold text-gray-800 hidden">
+                <!-- Toplam fiyat buraya gelecek -->
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Navbar ve footer yükleme
+        $(function () {
+            $('#navbar-placeholder').load('navbar.html', function () {
+                updateNavbar();
+            });
+            $('#footer-placeholder').load('footer.html');
+        });
+
+        // Sepet öğelerini yükleme
+        document.addEventListener('DOMContentLoaded', function () {
+            const token = localStorage.getItem("token");
+
+            axios.get('http://localhost:8080/api/cart/items', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+                .then(response => {
+                    const cartItems = response.data;
+                    const cartContainer = document.getElementById("cart-items");
+                    const emptyCartMessage = document.getElementById("empty-cart-message");
+                    const totalPriceElement = document.getElementById("total-price");
+
+                    if (cartItems.length === 0) {
+                        emptyCartMessage.classList.remove("hidden");
+                    } else {
+                        let totalPrice = 0;
+
+                        cartItems.forEach(item => {
+                            const itemElement = document.createElement("div");
+                            itemElement.classList.add("bg-white", "p-6", "rounded-lg", "shadow-md", "flex", "flex-col", "items-center");
+
+                            itemElement.innerHTML = `
+                              <img src="${item.imgSrc}" alt="${item.title}" class="w-24 h-24 object-cover rounded-lg mb-4">
+                              <h3 class="text-lg font-semibold text-gray-700 mb-2">${item.title}</h3>
+                              <p class="text-gray-500">Fiyat: ${item.price}</p>
+                              <button class="mt-4 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors">
+                                  Sepetten Çıkar
+                              </button>
+                          `;
+                            cartContainer.appendChild(itemElement);
+
+                            totalPrice += parseFloat(item.price || 0);
+                        });
+
+                        totalPriceElement.textContent = `Toplam: ${totalPrice.toFixed(2)} TL`;
+                        totalPriceElement.classList.remove("hidden");
+                    }
+                })
+                .catch(error => {
+                    console.error("Sepet yüklenirken bir hata oluştu:", error);
+                });
+        });
+    </script>
+</body>
+
+</html>

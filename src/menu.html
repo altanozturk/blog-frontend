@@ -21,7 +21,7 @@
 
 </head>
 
-<body class="text-gray-600 flex-grow h-screen font-roboto ">
+<body class="text-gray-600 flex-grow h-screen font-roboto">
 
     <div id="navbar-placeholder"></div>
 
@@ -37,11 +37,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
 
     <div id="footer-placeholder"></div>
 
@@ -100,7 +95,7 @@
                     menuItemContainer.find('.menu-item-price').text(menuDataList[index].price);
 
                     // Butona onclick özelliği ekle
-                    menuItemContainer.find('.add-to-cart-button').attr('onclick', `addToCart('${menuDataList[index].id}')`);
+                    menuItemContainer.find('.add-to-cart-button').attr('onclick', `addToCart('${menuDataList[index].imageSrc}','${menuDataList[index].price}','${menuDataList[index].title}', '${menuDataList[index].id}')`);
                 });
             });
         });

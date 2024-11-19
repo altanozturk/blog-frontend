@@ -32,6 +32,12 @@ function updateNavbar() {
                         Arabam Kaç Yakar?
                     </a>
                 </div>
+                <div class="ml-12 flex">
+                    <a href="sepet.html" class="flex items-center hover:text-gray-600 transition">
+                        <span class="mr-2"> <i class="fa-solid fa-cart-shopping"></i> </span>
+                        Sepetim
+                    </a>
+                </div>
 
                 <div class="relative ml-auto flex items-center">
                     ${username ? `

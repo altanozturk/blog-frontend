@@ -1,6 +1,9 @@
-function addToCart(productId) {
+function addToCart(imageSrc, price, title, productId) {
     axios.post('http://localhost:8080/api/cart/add', {
-        productId: productId
+        productId: productId,
+        title: title,
+        price: price,
+        imgSrc: imageSrc
     }, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}` // JWT ile doğrulama
